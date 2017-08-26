@@ -8,7 +8,7 @@ LOCAL_CFLAGS := -DANDROID_NDK \
                 -DDISABLE_IMPORTGL \
                 -Wall -g
 
-LOCAL_LDFLAGS          := -Wl,-Map,xxx.map
+LOCAL_LDFLAGS          := -Wl
 
 LOCAL_SRC_FILES := \
    hdlc.c \

@@ -1,7 +1,7 @@
 .gradle
 .idea
 build
-obj
+.externalNativeBuild
 *.iml
 .DS_Store
 gradle.properties
