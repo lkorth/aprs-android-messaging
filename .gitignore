@@ -1,5 +1,8 @@
-*.class
-*.so
-*.d
-*.o
-bin/*
+.gradle
+.idea
+build
+obj
+*.iml
+.DS_Store
+gradle.properties
+local.properties
