@@ -19,55 +19,49 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class PacketDroidActivity extends Activity implements PacketCallback {
-	
+
 	public static String LOG_TAG = "MultimonDroid";
-	
+
 	// TODO this shouldn't be a constant. Use Context.getApplicationInfo().dataDir
 	private String PIPE_PATH = "/data/data/com.lukekorth.aprs_messaging/pipe";
-	
+
 	private Button readButton, stopButton;
 	private TextView tv;
 	private ScrollView sv;
-	
+
 	private AudioBufferProcessor abp = null;
 
-	
-	// FIXME see what happens when this gets called with the application running
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        
-        readButton = (Button) findViewById(R.id.button1);
-        readButton.setOnClickListener(onClickReadButtonListener);
-        
-        stopButton = (Button) findViewById(R.id.button2);
-        stopButton.setOnClickListener(onClickStopButtonListener);
-        
-		tv = (TextView) findViewById(R.id.textview);
-		sv = (ScrollView) findViewById(R.id.scrollView1);
-		
-		Log.d(LOG_TAG, "PacketDroidActivity: OnCreate");
-    }
-    
-    private OnClickListener onClickReadButtonListener = new OnClickListener() {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		readButton = findViewById(R.id.button1);
+		readButton.setOnClickListener(onClickReadButtonListener);
+
+		stopButton = findViewById(R.id.button2);
+		stopButton.setOnClickListener(onClickStopButtonListener);
+
+		tv = findViewById(R.id.textview);
+		sv = findViewById(R.id.scrollView1);
+	}
+
+	private OnClickListener onClickReadButtonListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Log.d(LOG_TAG, "START: Monitor");
 			startMonitor();
-			
+
 			//Log.d(LOG_TAG, "START: PipeReader");
 			//startPipeRead();
-			
+
 			v.setEnabled(false);
 			stopButton.setEnabled(true);
 		}
 	};
-    
+
 	private OnClickListener onClickStopButtonListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			Log.d(LOG_TAG, "STOP: Monitor");
 			stopMonitor();
 
 			v.setEnabled(false);
@@ -79,29 +73,27 @@ public class PacketDroidActivity extends Activity implements PacketCallback {
 		if (abp == null) {
 			abp = new AudioBufferProcessor(this);
 			abp.start();
-		}
-		else {
+		} else {
 			abp.startRecording();
 		}
 	}
-	
+
 	private void stopMonitor() {
 		abp.stopRecording();
 	}
-	
 
 	private final Handler handler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			Log.d(LOG_TAG, "GOT MESSAGE FROM FILE READER!");
 			tv.append(msg.getData().getString("line") + "\n");
-			sv.scrollTo(0, tv.getHeight()); 
+			sv.scrollTo(0, tv.getHeight());
 		}
 	};
-	
+
 	private void startPipeRead() {
 		Thread t = new Thread(null, new Runnable() {
-			 public void run() {
+			public void run() {
 				try {
 					BufferedReader in = new BufferedReader(new FileReader(PIPE_PATH));
 					String line;
@@ -116,22 +108,18 @@ public class PacketDroidActivity extends Activity implements PacketCallback {
 							msg.setData(bundle);
 							handler.sendMessage(msg);
 						}
-						
+
 					}
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				 
-			 }
+			}
 		});
 		t.start();
 	}
-	
-	
+
 	// PacketCallback interface
 	public void received(byte[] data) {
 		Message msg = Message.obtain();
@@ -148,5 +136,3 @@ public class PacketDroidActivity extends Activity implements PacketCallback {
 		handler.sendMessage(msg);
 	}
 }
-	
-	

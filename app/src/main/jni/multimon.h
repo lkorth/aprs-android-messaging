@@ -26,17 +26,7 @@
 
 #include <android/log.h>
 #define LOG_TAG "MultimonDroid"
-#define LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 #define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
-
-
-/* ---------------------------------------------------------------------- */
-
-extern const float costabf[0x400];
-#define COS(x) costabf[(((x)>>6)&0x3ffu)]
-#define SIN(x) COS((x)+0xc000)
-
-/* ---------------------------------------------------------------------- */
 
 struct demod_state {
 	const struct demod_param *dem_par;
@@ -120,12 +110,6 @@ struct demod_state {
 			int blkcount;
 			int lastch;
 		} zvei;
-
-/* 		struct l1_state_scope { */
-/* 			int datalen; */
-/* 			int dispnum; */
-/* 			float data[512]; */
-/* 		} scope; */
 	} l1;
 };
 
@@ -141,12 +125,6 @@ struct demod_param {
 
 extern const struct demod_param demod_afsk1200;
 
-//extern const struct demod_param demod_scope;
-
-#define ALL_DEMOD &demod_afsk1200
-
-
-
 /* ---------------------------------------------------------------------- */
 
 void verbprintf(int verb_level, const char *fmt, ...);
@@ -154,12 +132,8 @@ void verbprintf(int verb_level, const char *fmt, ...);
 void hdlc_init(struct demod_state *s);
 void hdlc_rxbit(struct demod_state *s, int bit);
 
-void pocsag_init(struct demod_state *s);
-void pocsag_rxbit(struct demod_state *s, int bit);
-
-
 // TODO this can't be a constant. FIXME
-#define NAMED_PIPE "/data/data/com.lukekorth.aprs_messaging/pipe"
+#define NAMED_PIPE "/data/data/com.lukekorth/pipe"
 
 /* ---------------------------------------------------------------------- */
 #endif /* _MULTIMON_H */
