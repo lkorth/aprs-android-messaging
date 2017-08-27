@@ -1,4 +1,4 @@
-package com.jazzido.PacketDroid;
+package com.lukekorth.aprs_messaging;
 
 import java.io.File;
 import java.io.FileInputStream;

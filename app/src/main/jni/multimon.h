@@ -159,7 +159,7 @@ void pocsag_rxbit(struct demod_state *s, int bit);
 
 
 // TODO this can't be a constant. FIXME
-#define NAMED_PIPE "/data/data/com.jazzido.PacketDroid/pipe"
+#define NAMED_PIPE "/data/data/com.lukekorth.aprs_messaging/pipe"
 
 /* ---------------------------------------------------------------------- */
 #endif /* _MULTIMON_H */

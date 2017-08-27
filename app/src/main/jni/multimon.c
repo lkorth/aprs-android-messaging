@@ -64,7 +64,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
 }
 
 
-void Java_com_jazzido_PacketDroid_AudioBufferProcessor_init(JNIEnv *env, jobject object) {
+void Java_com_lukekorth_aprs_1messaging_AudioBufferProcessor_init(JNIEnv *env, jobject object) {
   static int sample_rate = -1;
   unsigned int i;
   unsigned int overlap = 0;
@@ -103,10 +103,10 @@ void Java_com_jazzido_PacketDroid_AudioBufferProcessor_init(JNIEnv *env, jobject
 
 
 // this should be equivalent to
-// com.jazzido.PacketDroid.AudioBufferProcessor.read
+// com.lukekorth.aprs_messaging.AudioBufferProcessor.read
 // but it doesn't work...
 // FIXME 
-void Java_com_jazzido_PacketDroid_AudioBufferProcessor_processBuffer2(JNIEnv *env, jobject object, jbyteArray buf) {
+void Java_com_lukekorth_aprs_1messaging_AudioBufferProcessor_processBuffer2(JNIEnv *env, jobject object, jbyteArray buf) {
 
   LOGD("ProcessBuffer2 NATIVE");
 
@@ -135,7 +135,7 @@ void Java_com_jazzido_PacketDroid_AudioBufferProcessor_processBuffer2(JNIEnv *en
 JNIEnv *env_global;
 jobject *abp_global;
 
-void Java_com_jazzido_PacketDroid_AudioBufferProcessor_processBuffer(JNIEnv *env, jobject object, jfloatArray fbuf, jint length) {
+void Java_com_lukekorth_aprs_1messaging_AudioBufferProcessor_processBuffer(JNIEnv *env, jobject object, jfloatArray fbuf, jint length) {
   env_global = env;
   abp_global = object;
   LOGD("ProcessBuffer NATIVE");

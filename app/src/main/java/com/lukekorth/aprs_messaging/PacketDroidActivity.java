@@ -1,9 +1,4 @@
-package com.jazzido.PacketDroid;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+package com.lukekorth.aprs_messaging;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,12 +13,17 @@ import android.widget.TextView;
 
 import net.ab0oo.aprs.parser.Parser;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class PacketDroidActivity extends Activity implements PacketCallback {
 	
 	public static String LOG_TAG = "MultimonDroid";
 	
 	// TODO this shouldn't be a constant. Use Context.getApplicationInfo().dataDir
-	private String PIPE_PATH = "/data/data/com.jazzido.PacketDroid/pipe";
+	private String PIPE_PATH = "/data/data/com.lukekorth.aprs_messaging/pipe";
 	
 	private Button readButton, stopButton;
 	private TextView tv;

@@ -1,4 +1,4 @@
-package com.jazzido.PacketDroid;
+package com.lukekorth.aprs_messaging;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +10,6 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder.AudioSource;
 import android.util.Log;
-
-import net.ab0oo.aprs.parser.Parser;
 
 public class AudioBufferProcessor extends Thread {
 

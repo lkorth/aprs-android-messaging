@@ -1,4 +1,4 @@
-package com.jazzido.PacketDroid;
+package com.lukekorth.aprs_messaging;
 
 
 public abstract class BufferProcessor {
