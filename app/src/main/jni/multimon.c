@@ -31,7 +31,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
   return JNI_VERSION_1_6;
 }
 
-void Java_com_lukekorth_aprs_1messaging_AudioBufferProcessor_init(JNIEnv *env, jobject object) {
+void Java_com_lukekorth_aprs_1messaging_services_AprsAudioRecordingService_init(JNIEnv *env, jobject object) {
   static int sample_rate = -1;
   unsigned int i;
   unsigned int overlap = 0;
@@ -56,16 +56,12 @@ void Java_com_lukekorth_aprs_1messaging_AudioBufferProcessor_init(JNIEnv *env, j
     if (dem[i]->overlap > overlap)
       overlap = dem[i]->overlap;
   }
-
-  // create named pipe for sending data to Java side
-  unlink(NAMED_PIPE);
-  int res = mkfifo(NAMED_PIPE,  S_IRUSR | S_IWUSR);
 }
 
 JNIEnv *env_global;
 jobject *abp_global;
 
-void Java_com_lukekorth_aprs_1messaging_AudioBufferProcessor_processBuffer(JNIEnv *env, jobject object, jfloatArray fbuf, jint length) {
+void Java_com_lukekorth_aprs_1messaging_services_AprsAudioRecordingService_processBuffer(JNIEnv *env, jobject object, jfloatArray fbuf, jint length) {
   env_global = env;
   abp_global = object;
   jfloat *jfbuf = (*env)->GetFloatArrayElements(env, fbuf, 0);

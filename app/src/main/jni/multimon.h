@@ -132,8 +132,5 @@ void verbprintf(int verb_level, const char *fmt, ...);
 void hdlc_init(struct demod_state *s);
 void hdlc_rxbit(struct demod_state *s, int bit);
 
-// TODO this can't be a constant. FIXME
-#define NAMED_PIPE "/data/data/com.lukekorth/pipe"
-
 /* ---------------------------------------------------------------------- */
 #endif /* _MULTIMON_H */

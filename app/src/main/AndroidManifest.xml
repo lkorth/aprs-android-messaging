@@ -3,19 +3,19 @@
     package="com.lukekorth.aprs_messaging">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
-        android:icon="@drawable/icon"
         android:label="@string/app_name">
 
-        <activity android:name=".PacketDroidActivity"
+        <activity android:name=".AprsMessagingActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".services.AprsAudioRecordingService" />
 
     </application>
 </manifest>

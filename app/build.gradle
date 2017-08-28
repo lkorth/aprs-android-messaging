@@ -30,4 +30,5 @@ android {
 
 dependencies {
     compile 'com.github.ab0oo:javAPRSlib:2eb8c81ee4'
+    compile 'com.android.support:support-annotations:26.0.1'
 }
