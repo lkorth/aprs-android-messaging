@@ -14,7 +14,7 @@ import net.ab0oo.aprs.parser.Parser;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class AprsAudioRecordingService extends Service {
+public class AprsAudioService extends Service {
 
     static {
         System.loadLibrary("multimon");

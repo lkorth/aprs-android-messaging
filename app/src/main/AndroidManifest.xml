@@ -15,7 +15,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".services.AprsAudioRecordingService" />
+        <service android:name=".services.AprsAudioService" />
 
     </application>
 </manifest>

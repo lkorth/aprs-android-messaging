@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.lukekorth.aprs_messaging.services.AprsAudioRecordingService;
+import com.lukekorth.aprs_messaging.services.AprsAudioService;
 
 public class AprsMessagingActivity extends Activity {
 
@@ -12,13 +12,13 @@ public class AprsMessagingActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		startService(new Intent(this, AprsAudioRecordingService.class));
+		startService(new Intent(this, AprsAudioService.class));
 	}
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        stopService(new Intent(this, AprsAudioRecordingService.class));
+        stopService(new Intent(this, AprsAudioService.class));
     }
 }

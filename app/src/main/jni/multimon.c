@@ -31,7 +31,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *jvm, void *reserved)
   return JNI_VERSION_1_6;
 }
 
-void Java_com_lukekorth_aprs_1messaging_services_AprsAudioRecordingService_init(JNIEnv *env, jobject object) {
+void Java_com_lukekorth_aprs_1messaging_services_AprsAudioService_init(JNIEnv *env, jobject object) {
   static int sample_rate = -1;
   unsigned int i;
   unsigned int overlap = 0;
@@ -61,7 +61,7 @@ void Java_com_lukekorth_aprs_1messaging_services_AprsAudioRecordingService_init(
 JNIEnv *env_global;
 jobject *abp_global;
 
-void Java_com_lukekorth_aprs_1messaging_services_AprsAudioRecordingService_processBuffer(JNIEnv *env, jobject object, jfloatArray fbuf, jint length) {
+void Java_com_lukekorth_aprs_1messaging_services_AprsAudioService_processBuffer(JNIEnv *env, jobject object, jfloatArray fbuf, jint length) {
   env_global = env;
   abp_global = object;
   jfloat *jfbuf = (*env)->GetFloatArrayElements(env, fbuf, 0);
