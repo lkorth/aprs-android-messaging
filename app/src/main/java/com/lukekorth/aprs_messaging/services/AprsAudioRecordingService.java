@@ -12,6 +12,8 @@ import android.util.Log;
 import net.ab0oo.aprs.parser.APRSPacket;
 import net.ab0oo.aprs.parser.Parser;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class AprsAudioRecordingService extends Service {
 
     static {
@@ -22,6 +24,7 @@ public class AprsAudioRecordingService extends Service {
     native void processBuffer(float[] buf, int length);
 
     private AudioRecorderThread mAudioRecorder;
+    private AtomicBoolean mSilence;
 
     @Override
     public void onCreate() {
@@ -29,8 +32,9 @@ public class AprsAudioRecordingService extends Service {
 
         init();
 
-        mAudioRecorder = new AudioRecorderThread();
+        mSilence = new AtomicBoolean(true);
 
+        mAudioRecorder = new AudioRecorderThread();
         mAudioRecorder.start();
     }
 
@@ -56,9 +60,10 @@ public class AprsAudioRecordingService extends Service {
         private static final int OVERLAP = 18;
 
         private AudioRecord mRecorder;
-        private short[][] mBuffers = new short[256][8192];
-        private float[] mDecodeBuffer = new float[16384];
         private int mDecodeBufferIndex = 0;
+
+        private final short[][] mBuffers = new short[256][8192];
+        private final float[] mDecodeBuffer = new float[16384];
 
         AudioRecorderThread() {
             super("AudioRecorderThread");
@@ -86,8 +91,16 @@ public class AprsAudioRecordingService extends Service {
         }
 
         private void decode(short[] s) {
-            for (int i = 0; i < s.length; i++) {
-                mDecodeBuffer[mDecodeBufferIndex++] = s[i] * (1.0f/32768.0f);
+            mSilence.set(true);
+
+            for (short value : s) {
+                if (mSilence.get()) {
+                    if (value != 0) {
+                        mSilence.set(false);
+                    }
+                }
+
+                mDecodeBuffer[mDecodeBufferIndex++] = value * (1.0f / 32768.0f);
             }
 
             if (mDecodeBufferIndex > OVERLAP) {
